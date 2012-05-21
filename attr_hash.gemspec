@@ -14,4 +14,8 @@ Gem::Specification.new do |gem|
   gem.name          = "attr_hash"
   gem.require_paths = ["lib"]
   gem.version       = AttrHash::VERSION
+  
+  gem.add_dependency "activesupport", "~> 3.2.3"
+  
+  gem.add_development_dependency "rspec", "~> 2.10.0"
 end
