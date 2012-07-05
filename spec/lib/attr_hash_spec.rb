@@ -13,14 +13,23 @@ end
 describe AttrHash do
   subject { TestObject.new }
   
-  it { subject.a.should eq(3) }
-  it { subject.b.should eq({c:5}) }
-  it { subject.d.should be_nil }
+  describe "method_missing" do
+    it { subject.a.should eq(3) }
+    it { subject.b.should eq({c:5}) }
+    it { subject.d.should be_nil }
 
-  it "should raise an exception" do
-    expect {
-      subject.e
-    }.should raise_error(NoMethodError)
+    it "should raise an exception" do
+      expect {
+        subject.e
+      }.should raise_error(NoMethodError)
+    end
+  end
+  
+  describe "respond_to?" do
+    it { subject.respond_to?(:a).should be_true }
+    it { subject.respond_to?(:b).should be_true }
+    it { subject.respond_to?(:d).should be_true }
+    it { subject.respond_to?(:e).should be_false }
   end
   
 end
