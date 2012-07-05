@@ -7,6 +7,7 @@ class TestObject
   
   def initialize
     @attr_hash = { a: 3, b: { c: 5 }, d: nil }
+    @foo = "bar"
   end
 end
 
@@ -17,6 +18,7 @@ describe AttrHash do
     it { subject.a.should eq(3) }
     it { subject.b.should eq({c:5}) }
     it { subject.d.should be_nil }
+    it { subject.foo.should eq("bar") }
 
     it "should raise an exception" do
       expect {
@@ -30,6 +32,7 @@ describe AttrHash do
     it { subject.respond_to?(:b).should be_true }
     it { subject.respond_to?(:d).should be_true }
     it { subject.respond_to?(:e).should be_false }
+    it { subject.respond_to?(:foo).should be_true }
   end
   
 end
