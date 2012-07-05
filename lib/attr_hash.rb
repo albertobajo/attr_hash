@@ -5,18 +5,20 @@ module AttrHash
   extend ActiveSupport::Concern
   
   def respond_to?(method, include_private = false)
-    self.attr_hash ||= {}
-    if self.attr_hash.key? method.to_sym
-      return true
-    else
+    super_result = super
+    if super_result
       super
+    elsif not attr_hash.nil?
+      attr_hash.key?(method.to_sym)
+    else
+      false
     end
   end
   
   def method_missing(method, *args, &block)
-    self.attr_hash ||= {}
-    raise NoMethodError unless self.attr_hash.key? method.to_sym
-    self.attr_hash[method.to_sym]
+    super if attr_hash.nil?
+    raise NoMethodError unless attr_hash.key? method.to_sym
+    attr_hash[method.to_sym]
   end
   
 end
