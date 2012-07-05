@@ -6,7 +6,11 @@ module AttrHash
   
   def respond_to?(method, include_private = false)
     self.attr_hash ||= {}
-    self.attr_hash.key? method.to_sym
+    if self.attr_hash.key? method.to_sym
+      return true
+    else
+      super
+    end
   end
   
   def method_missing(method, *args, &block)
